@@ -1,0 +1,1 @@
+console.log('to jest jakas sprawa')
