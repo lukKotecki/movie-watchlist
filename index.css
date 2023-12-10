@@ -1,3 +1,50 @@
-body{
-    background-color: red;
+html, body{
+    margin:0;
+    padding:0;
 }
+
+header {
+    background:linear-gradient(
+        rgba(0, 0, 0, 0.7), 
+        rgba(0, 0, 0, 0.7)
+      ), url('https://s3-alpha-sig.figma.com/img/dafe/fd94/40637dd9b0240098474b6d8dd9487d8c?Expires=1702857600&Signature=CAdpS8hmcda7kvGS0VHtSoyyXkXzFwtbVGCk7-KgNyT5riNnsmFziDQhoYkksdfwRCCkJMiWcPJAyUnOeGhCFJDZjXpRZZRcHBTNlyvLQb2nhkpcGSGgcVq-UF-AOnFkWMF1S7B5vBbvWngg0EUiOS52GeWVo4Ua6qLWkiUUSwEUdUC0ySy5g51Qf8Vwp~RFJpa~yyehTOrAL4o5-082FgqaqP4m51Yzk7gKueQTUn4ts7yZT~bijQUzdBjpBRgEjCJI-8DI7t9LeEm~ue4NRWeqMTimO0sPE2jf4bBSK34qANRqM5MEQB7Q82PpfdFF1~IXW7Lksi3lvewp3WHfpA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4');
+    background-position: 50% 20%;
+    background-color: #11111133;
+    background-size: cover;
+    display:flex;
+    color:white;
+    height:208px;
+    align-items: center;
+    position: relative;
+}
+
+
+.header::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background-image: url('https://s3-alpha-sig.figma.com/img/dafe/fd94/40637dd9b0240098474b6d8dd9487d8c?Expires=1702857600&Signature=CAdpS8hmcda7kvGS0VHtSoyyXkXzFwtbVGCk7-KgNyT5riNnsmFziDQhoYkksdfwRCCkJMiWcPJAyUnOeGhCFJDZjXpRZZRcHBTNlyvLQb2nhkpcGSGgcVq-UF-AOnFkWMF1S7B5vBbvWngg0EUiOS52GeWVo4Ua6qLWkiUUSwEUdUC0ySy5g51Qf8Vwp~RFJpa~yyehTOrAL4o5-082FgqaqP4m51Yzk7gKueQTUn4ts7yZT~bijQUzdBjpBRgEjCJI-8DI7t9LeEm~ue4NRWeqMTimO0sPE2jf4bBSK34qANRqM5MEQB7Q82PpfdFF1~IXW7Lksi3lvewp3WHfpA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4');
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+  }
+
+header h1 {
+    margin: 0;
+    padding: 0;
+}
+
+header a{
+    color:white;
+    text-decoration:none;
+    font-size: 1rem;
+}
+
+
+
+
