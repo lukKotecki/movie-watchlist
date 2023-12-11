@@ -12,25 +12,38 @@
 </head>
 <body>
     <div class="container">
-    <header>
-            <h1 class="title">Find your film</h1>
-            <a href="#">My Watchlist</a>
-    </header>
+        <header>
+                <h1 class="title">Find your film</h1>
+                <a href="#">My Watchlist</a>
+        </header>
 
-    <form id="search-container">
-        <input type="text" placeholder="Search for a movie">
-        <button type="subbmit">Search</button>
-    </form>
+        <form id="search-container">
+            <input type="text" name="movie-title" placeholder="Search for a movie">
+            <button type="submit">Search</button>
+        </form>
 
-    <section id="main-section">
+        <section id="main-section">
 
-        <div id="main-placeholder">
-            <i class="fa-solid fa-film"></i>
-            <p>Start exploring</p>
-        </div>
+            <ul id="movie-list">
+                <li class="movie-element">
+                    <img src="https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg">
+                    <h3>Batman Begins* 8,1</h3> 
+                    <div class="div">
+                        <p>117min <span>Action, Darama, Sci-fi</span></p>
+                        <button>+ Watchlist</button>
+                    </div>
+                    <p>A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.</p>
+                </li>
+            </ul>
 
-    </section>
+            <div id="main-placeholder">
+                <i class="fa-solid fa-film"></i>
+                <p>Start exploring</p>
+            </div>
+
+        </section>
     </div>
 
+    <script src="index.js" type="module"></script>
 </body>
 </html>

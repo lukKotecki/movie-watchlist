@@ -1,7 +1,15 @@
 html, body{
+    font-family: 'Inter', sans-serif;
+    background-color: #ddd;
+}
+
+html,
+body,
+ul, 
+ul li,
+h3{
     margin:0;
     padding:0;
-    font-family: 'Inter', sans-serif;
 }
 
 .container{
@@ -9,6 +17,8 @@ html, body{
     flex-direction: column;
     max-width: 600px;
     margin: auto;
+    position: relative;
+    background-color: #fff;
 }
 
 header {
@@ -30,32 +40,57 @@ header {
 header h1 {
     margin: 1em;
     padding: 0;
-    font-size: 3rem;
+    font-size: 2.2rem;
 }
 
 header a{
     color:white;
     text-decoration:none;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
     margin:3em;
 }
 
+
+#search-container,
+#search-container input
+{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+#search-container,
+#search-container button
+{
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
 #search-container{
-    width:500px;
+    width:85%;
     border:1px solid #555;
-    border-radius: 8px;
-    background-color: lightgreen;
     margin: auto;
+    display: flex;
+    position: absolute;
+    left:8%;
+    top:190px
 }
 #search-container input{
     border: none;
-    margin: 0.2em;
+    padding: 0.8em;
+    width: auto;
+    flex-grow: 1;
 }
 #search-container button{
-    border: none;
-    margin: 0.2em;
+    border:none;
+    border-left: 1px solid #555;
     background-color: white;
-    
+    padding: 0.8em;
+    margin-left: auto;
+    width: 120px;
+}
+#search-container button:hover{
+    background-color: #eee;
+    cursor: pointer;
 }
 
 
@@ -63,12 +98,10 @@ header a{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: lightgray;
     min-height: 500px;
 }
 
 #main-placeholder{
-    background-color: lightblue;
     color:#555;
     text-align: center;
 }
@@ -78,3 +111,26 @@ header a{
 }
 
 
+.movie-element{
+    display: grid;
+    grid-template:  30px 30px 60px  / 1fr 4fr;
+    list-style-type: none;
+    width:100%;
+    background-color: aquamarine;
+    padding:10%;
+    box-sizing: border-box;
+}
+
+.div{
+    background-color: aqua;
+}
+.movie-element img {
+    height:120px;
+    grid-row: 1 / -1;
+    
+}
+
+.movie-element p{
+    display: inline-block;
+    margin: 0;
+}
