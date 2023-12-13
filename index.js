@@ -1,66 +1,85 @@
 const searchContainer = document.getElementById('search-container')
 const mainSection = document.getElementById('main-section')
 const mainPlaceholder = document.getElementById('main-placeholder')
-
-
-searchContainer.addEventListener('submit',(e)=>{
-    e.preventDefault()
-    let movieTitle = document.getElementsByName('movie-title')[0].value
-    console.log(movieTitle)
-
-    getDataFromOMDb(movieTitle)
-})
-
-
+const movieList = document.getElementById('movie-list')
+const movieTitle = document.getElementsByName('movie-title')[0]
 
 function getDataFromOMDb(title){
 
-    console.log(title.split(' ').join('+'))
-    console.log(title.replace(/ /g, '+'))
+    // console.log(title.split(' ').join('+'))
+    // console.log(title.replace(/ /g, '+'))
    
     fetch(`http://www.omdbapi.com/?apikey=8d939b35&s=${title.split(' ').join('+')}`)
-        .then(res => res.json())
-        .then(data =>{
-            renderDataToMainSection(data)
+        .then(res => {
+            if(!res.ok){
+                throw Error("Something went wrong")
+            }else{
+                return res.json()
+            }
         })
-}
-
-fetch(`http://www.omdbapi.com/?apikey=8d939b35&s=Batman&p=6}`)
-.then(res => {
-        if(!res.ok){
-            throw Error("Something went wrong")
-        }else{
-            return res.json()
-        }
+        .then(data =>{
+            if(data.Response==="True"){
+                renderDataToMainSection(data)
+            }else{
+                throw Error("Didnt find any movie")
+            }
+        }).catch(e => {
+            console.error("ERROR: "+e.message) 
+            clearMainSection();   
     })
-    .then(data =>{
-        if(data.Response==="True"){
-            renderDataToMainSection(data)
-        }else{
-            throw Error("Didnt find any movie")
-        }
-    }).catch(e => {console.error("ERROrR: "+e.message)
-        
-})
+}
 
 function renderDataToMainSection(data){
     console.log(data)
-
-
-    data.Search.forEach(movie => {
-        //mainSection.textContent += movie.Title
-    });
     mainPlaceholder.style.display = 'none'
+    let movieElements = ''
 
-    //mainSection.innerHTML += "cos"
+    data.Search.forEach((movie,i) => {
+        //mainSection.textContent += movie.Title
+        // console.log(data)
+        movieElements += `
+        <li class="movie-element">
+            <img src="${data.Search[i].Poster}">
+            <h3>${data.Search[i].Title} <span><i class="fa-solid fa-star"></i> ${data.Search[i].Year}</span></h3> 
+            <div class="movie-element-info">
+                <p>117 min</p> 
+                <p>Action, Darama, Sci-fi</p>
+                <button id="${data.Search[i].imdbID}"><i class="fa-solid fa-circle-plus"></i> Watchlist</button>
+            </div>
+            <p>A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.</p>
+        </li>`
+        
+    });
 
-    
+    movieList.innerHTML = movieElements
 
 }
 
+mainSection.addEventListener('click',e=>{
+    e.preventDefault()
+    if (e.target.id && e.target.id.length === 9){
+        console.log(e.target.id)
+        localStorage.setItem('movieId', e.target.id)
+    }else{
+        console.log('złe id')
+    }
+
+})
+
+searchContainer.addEventListener('submit',e=>{
+    e.preventDefault()
+    if(movieTitle.value){
+        getDataFromOMDb(movieTitle.value)
+    } 
+})
 
 
 
+
+function clearMainSection(){
+    movieList.textContent = ''
+    mainPlaceholder.style.display = 'block'
+}
 
 
 
