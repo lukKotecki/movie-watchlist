@@ -3,6 +3,7 @@ const mainSection = document.getElementById('main-section')
 const mainPlaceholder = document.getElementById('main-placeholder')
 const movieList = document.getElementById('movie-list')
 const movieTitle = document.getElementsByName('movie-title')[0]
+const myMovieList = document.getElementById('my-movie-list')
 
 function getDataFromOMDb(title){
 
@@ -21,11 +22,13 @@ function getDataFromOMDb(title){
             if(data.Response==="True"){
                 renderDataToMainSection(data)
             }else{
+                mainPlaceholder.textContent = 'Unable to find what you’re looking for. Please try another search.'     
                 throw Error("Didnt find any movie")
             }
         }).catch(e => {
             console.error("ERROR: "+e.message) 
             clearMainSection();   
+
     })
 }
 
@@ -55,16 +58,18 @@ function renderDataToMainSection(data){
 
 }
 
-mainSection.addEventListener('click',e=>{
-    e.preventDefault()
-    if (e.target.id && e.target.id.length === 9){
+if(movieList){
+    movieList.addEventListener('click',e=>{
+        e.preventDefault()
         console.log(e.target.id)
-        localStorage.setItem('movieId', e.target.id)
-    }else{
-        console.log('złe id')
-    }
-
-})
+        if (e.target.id.length){
+            console.log(e.target.id)
+            addMovieIdToLocalStorage(e.target.id)
+            }else{
+            console.log('złe id bo wynosi '+e.target.id.length)
+        }
+    })
+}
 
 searchContainer.addEventListener('submit',e=>{
     e.preventDefault()
@@ -73,18 +78,82 @@ searchContainer.addEventListener('submit',e=>{
     } 
 })
 
-
-
-
 function clearMainSection(){
     movieList.textContent = ''
     mainPlaceholder.style.display = 'block'
 }
 
 
+function addMovieIdToLocalStorage(movie){
+
+    if(localStorage.getItem('movieId')){
+        if(localStorage.getItem('movieId').split(' ').includes(movie)){
+            console.log("Ten film już dodano")
+        }else{
+            localStorage.setItem('movieId', localStorage.getItem('movieId')+" "+movie)
+        }
+    }else{
+        localStorage.setItem('movieId', movie)
+    }
+
+}
+
+function renderMyWatchlist(){
+    let myWatchist = localStorage.getItem('movieId').split(' ')
+    console.log(myWatchist)
 
 
+    if(myWatchist){
+        mainPlaceholder.style.display = 'none'
 
+        myMovieList.innerHTML = ''
+        myWatchist.forEach((movie,i) => {
+
+            fetch(`http://www.omdbapi.com/?apikey=8d939b35&i=${movie}`)
+                .then(res =>res.json())
+                .then(data =>{
+                    myMovieList.innerHTML += `
+                    <li class="movie-element">
+                        <img src="${data.Poster}">
+                        <h3>${data.Title} <span><i class="fa-solid fa-star"></i> ${data.Year}</span></h3> 
+                        <div class="movie-element-info">
+                            <p>117 min</p> 
+                            <p>Action, Darama, Sci-fi</p>
+                            <button id="${movie}"><i class="fa-solid fa-circle-minus"></i> Remove</button>
+                        </div>
+                        <p>A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.</p>
+                    </li>`
+                    console.log(data)
+                })
+
+        });
+
+    }else{
+        mainPlaceholder.style.display = 'block'
+    }
+
+
+}
+
+
+if(myMovieList){
+    renderMyWatchlist()
+
+    myMovieList.addEventListener('click',e=>{
+        if(e.target.id){
+            console.log(e.target.id)
+
+            let myWatchist = localStorage.getItem('movieId').split(' ')
+            myWatchist = myWatchist.filter(idToRemove => idToRemove !== e.target.id)
+            localStorage.setItem('movieId',...myWatchist)
+            renderMyWatchlist();
+
+            console.log(...myWatchist)
+            console.log('Kliknieto remove')
+        }
+    })
+
+}
 
 
 
@@ -167,7 +236,46 @@ let object = {
 
 
 
-
+let movie = {
+    "Title": "Blade of the Immortal",
+    "Year": "2017",
+    "Rated": "R",
+    "Released": "03 Nov 2017",
+    "Runtime": "140 min",
+    "Genre": "Action, Drama, Fantasy",
+    "Director": "Takashi Miike",
+    "Writer": "Hiroaki Samura, Tetsuya Oishi",
+    "Actors": "Takuya Kimura, Hana Sugisaki, Sôta Fukushi",
+    "Plot": "Cursed with a life of immortality, a samurai is tasked by a young girl to help avenge the death of her father. Based on the manga series by Hiroaki Samura.",
+    "Language": "Japanese",
+    "Country": "Japan, United Kingdom, South Korea",
+    "Awards": "1 win & 10 nominations",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BYzIwYmJlMjktMzJiMy00YmQzLThmNWYtNWY3NGViZjc4MzYwXkEyXkFqcGdeQXVyNDQxNjcxNQ@@._V1_SX300.jpg",
+    "Ratings": [
+        {
+            "Source": "Internet Movie Database",
+            "Value": "6.7/10"
+        },
+        {
+            "Source": "Rotten Tomatoes",
+            "Value": "87%"
+        },
+        {
+            "Source": "Metacritic",
+            "Value": "72/100"
+        }
+    ],
+    "Metascore": "72",
+    "imdbRating": "6.7",
+    "imdbVotes": "19,168",
+    "imdbID": "tt5084170",
+    "Type": "movie",
+    "DVD": "08 Nov 2017",
+    "BoxOffice": "$150,532",
+    "Production": "N/A",
+    "Website": "N/A",
+    "Response": "True"
+}
 
 
 
@@ -205,3 +313,6 @@ function sortArray(arrayToSort){
 }
 
 //console.log(sortArray(unsortedArray))
+
+
+

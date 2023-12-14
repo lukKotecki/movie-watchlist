@@ -102,13 +102,24 @@ header a{
 }
 
 #main-placeholder{
-    color:#555;
+    color:#777;
     text-align: center;
     margin:auto;
+    font-weight: bold;
 }
 
 #main-placeholder i{
     font-size: 6rem;
+}
+
+#main-placeholder a{
+    text-decoration: none;
+    color: black;
+    font-size: .9rem;
+}
+
+#main-placeholder a i{
+    font-size: 1rem;
 }
 
 
@@ -144,12 +155,13 @@ h3 span{
 }
 
 .movie-element-info button{
-    background-color: #fff;
     border:none;
     font-weight: bold;
     position:relative;
-    top:-5px
+    top:-5px;
+    background-color: #fff;
 }
+
 .movie-element-info button:hover{
     color:#666;
     cursor: pointer;
