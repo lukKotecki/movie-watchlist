@@ -103,7 +103,10 @@ function renderMyWatchlist(){
     console.log(myWatchist)
 
 
-    if(myWatchist){
+
+
+    if(myWatchist[0]){
+        console.log(myWatchist.length)
         mainPlaceholder.style.display = 'none'
 
         myMovieList.innerHTML = ''
@@ -129,8 +132,10 @@ function renderMyWatchlist(){
         });
 
     }else{
+        myMovieList.innerHTML = ''
         mainPlaceholder.style.display = 'block'
     }
+
 
 
 }
@@ -144,8 +149,14 @@ if(myMovieList){
             console.log(e.target.id)
 
             let myWatchist = localStorage.getItem('movieId').split(' ')
+
+            console.log(myWatchist)
+
             myWatchist = myWatchist.filter(idToRemove => idToRemove !== e.target.id)
-            localStorage.setItem('movieId',...myWatchist)
+            
+
+            console.log([...myWatchist])
+            localStorage.setItem('movieId', [...myWatchist].join(' '))
             renderMyWatchlist();
 
             console.log(...myWatchist)
